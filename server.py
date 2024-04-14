@@ -1,4 +1,5 @@
 import asyncio
+import threading
 from flask import Flask
 import asyncio_dgram
 
@@ -23,6 +24,7 @@ def main():
     loop = asyncio.get_event_loop()
     loop.create_task(udp_echo_server())
     t = threading.Thread(target=lambda:Flask().run(port=80))
+    t.start()
     loop.run_forever()
 
 if __name__ == "__main__":
