@@ -5,7 +5,7 @@ import asyncio_dgram
 
 
 async def udp_echo_server():
-    stream = await asyncio_dgram.bind(("35.160.120.126", 8888))
+    stream = await asyncio_dgram.bind(("127.0.0.1", 8888))
 
     print(f"Serving on {stream.sockname}")
     list_of_connections = []
@@ -23,7 +23,7 @@ async def udp_echo_server():
 def main():
     loop = asyncio.get_event_loop()
     loop.create_task(udp_echo_server())
-    t = threading.Thread(target=lambda:Flask().run(port=80))
+    t = threading.Thread(target=lambda:Flask(__name__).run(port=80))
     t.start()
     loop.run_forever()
 
